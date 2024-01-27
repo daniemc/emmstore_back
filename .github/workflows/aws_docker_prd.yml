@@ -2,7 +2,7 @@ name: Deploy PRD
 on:
   push:
     branches:
-      - "main"
+      - "PRD"
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -10,7 +10,7 @@ jobs:
       - name: Checkout latest
         uses: actions/checkout@v3
         with:
-          ref: 'main'
+          ref: 'PRD'
 
       - name: Generate Deployment Package
         run: zip -r deploy.zip . -x '*.git*'

@@ -19,3 +19,14 @@ Route::get('/hcheck', function () {
     return response('OK', 200);
 });
 
+
+Route::group(['prefix' => 'auth', ['middleware' => 'throttle:20,5']], function () {
+    Route::post('/register', 'api\auth\RegisterController@register');
+    Route::post('/login', 'api\auth\LoginController@login');
+    Route::post('/password/reset/data', 'api\auth\ResetPasswordController@getResetPasswordData');
+    Route::post('/password/reset', 'api\auth\ResetPasswordController@resetPassword');
+});
+
+Route::group(['middleware' => 'jwt.verify'], function () {
+    Route::post('/user', 'api\auth\UserController@show');
+});
