@@ -2,7 +2,7 @@ name: Deploy Testing Env
 on:
   push:
     branches:
-      - "QA"
+      - "dev"
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -10,7 +10,7 @@ jobs:
       - name: Checkout latest
         uses: actions/checkout@v2
         with:
-          ref: 'QA'
+          ref: 'dev'
 
       - name: Generate Deployment Package
         run: zip -r deploy.zip . -x '*.git*'
@@ -33,8 +33,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: Hestia-integration
-          environment_name: Hestiaintegration-env
+          application_name: store
+          environment_name: Store-env
           version_label: "${{ steps.format-time.outputs.replaced }}"
-          region: us-east-2
+          region: us-east-1
           deployment_package: deploy.zip
