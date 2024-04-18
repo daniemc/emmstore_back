@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Hestia</title>
+        <title>Store</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,7 +17,6 @@
     </head>
     <body class="antialiased">
         <div class="flex justify-center p-20">
-            Welcome to Hestia
         </div>
     </body>
 </html>

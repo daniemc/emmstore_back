@@ -27,7 +27,13 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         try {
             $user = User::where('email', $request->email)->first();
-            if ($user->userData->status == 0) {
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'invalid_credentials',
+                ], 401);
+            }
+            if ($user->status == 0) {
                 return response()->json([
                     'success' => false,
                     'error' => 'invalid_credentials',
@@ -50,6 +56,19 @@ class LoginController extends Controller
             'token' => $token,
             'user' => auth()->user(),
         ]);
+    }
 
+    public function logout(Request $request) 
+    {
+        try {
+            auth()->logout();
+            return [
+                'success' => true,
+            ];
+        } catch (JWTException $e) {
+            return response()->json([
+                'error' => 'could_not_logout'
+            ], 500);
+        }
     }
 }

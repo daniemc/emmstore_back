@@ -6,11 +6,13 @@ composer update
 
 php artisan storage:link
 
-# php artisan migrate
+php artisan migrate
 
 php artisan config:cache
 
 php artisan route:cache
+
+php artisan db:seed
 
 # php artisan view:cache
 
