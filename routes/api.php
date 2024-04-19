@@ -37,4 +37,15 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('/users', 'App\Http\Controllers\api\UserController@save');
     Route::put('/user/{id}', 'App\Http\Controllers\api\UserController@update');
     Route::delete('/user/{id}', 'App\Http\Controllers\api\UserController@delete');
+
+    //products
+    Route::get('/products', 'App\Http\Controllers\api\ProductsController@list');
+    Route::post('/products', 'App\Http\Controllers\api\ProductsController@save');
+    Route::put('/product/{id}', 'App\Http\Controllers\api\ProductsController@update');
+    Route::delete('/product/{id}', 'App\Http\Controllers\api\ProductsController@delete');
+    
+    Route::get('/products_varitants', 'App\Http\Controllers\api\ProductVariantController@list');
+    Route::post('/products_varitants', 'App\Http\Controllers\api\ProductVariantController@save');
+    Route::put('/product_varitants/{id}', 'App\Http\Controllers\api\ProductVariantController@update');
+    Route::delete('/product_varitants/{id}', 'App\Http\Controllers\api\ProductVariantController@delete');
 });

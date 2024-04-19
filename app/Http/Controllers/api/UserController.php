@@ -47,7 +47,8 @@ class UserController extends Controller
         ]);
 
         return response()->json([
-            'status' => 'Usuario creado correctamente',
+            'status' => 'success',
+            'message' => 'Usuario creado correctamente',
             'data' => $newUser,
         ], 200);
     }
@@ -66,13 +67,12 @@ class UserController extends Controller
                 'doc' => $request->doc,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
-                'created_by' => $requestUser->id,
-                'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
             ]);
 
         return response()->json([
-            'status' => 'Usuario actualizado correctamente',
+            'status' => 'success',
+            'message' => 'Usuario actualizado correctamente',
             'data' => $updatedUser,
         ], 200);
     }
@@ -83,7 +83,8 @@ class UserController extends Controller
         $deletedUser = User::where('id', $id)->delete();
 
         return response()->json([
-            'status' => 'Usuario eliminado correctamente',
+            'status' => 'success',
+            'message' => 'Usuario eliminado correctamente',
             'data' => $deletedUser,
         ], 200);
     }
