@@ -14,6 +14,15 @@ return new class extends Migration
     public function up()
     {
 
+        Schema::create('stores', function (Blueprint $table) {
+            $table->id();
+            $table->string('code');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->boolean('active');
+            $table->timestamps();
+        });
+
         Schema::create('movement_types', function (Blueprint $table) {
             $table->id();
             $table->string('code');
@@ -29,8 +38,9 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('vendor_id');
             $table->integer('customer_id');
+            $table->integer('store_id');
             $table->integer('pos_id');
-            $table->integer('type_id');
+            $table->integer('movement_type_id');
             $table->integer('qty');
             $table->decimal('total_db', total: 8, places: 2);
             $table->decimal('total_cr', total: 8, places: 2);
@@ -49,5 +59,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('movements');
         Schema::dropIfExists('movement_types');
+        Schema::dropIfExists('stores');
     }
 };

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\MovementType;
+use App\Models\Store;
 
-class MovementTypeController extends Controller
+class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,10 @@ class MovementTypeController extends Controller
      */
     public function index()
     {
-        $movementType = MovementType::all();
+        $stores = Store::all();
 
         return response()->json([
-            'data' => $movementType,
+            'data' => $stores,
         ], 200);
     }
 
@@ -30,16 +30,17 @@ class MovementTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $newMovementType = MovementType::create([
+        $newStore = Store::create([
             'code' => $request->code,
             'name' => $request->name,
             'description' => $request->description,
+            'active' => $request->active,
         ]);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Tipo de movimiento creado correctamente',
-            'data' => $newMovementType,
+            'message' => 'Tienda creada correctamente',
+            'data' => $newStore,
         ], 200);
     }
 
@@ -63,17 +64,18 @@ class MovementTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updatedMovementType = MovementType::where('id', $id)
+        $updatedStore = Store::where('id', $id)
             ->update([
                 'code' => $request->code,
                 'name' => $request->name,
                 'description' => $request->description,
+                'active' => $request->active,
             ]);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Tipo de movimiento actualizado correctamente',
-            'data' => $updatedMovementType,
+            'message' => 'Tienda actualizada correctamente',
+            'data' => $updatedStore,
         ], 200);
     }
 
@@ -85,13 +87,13 @@ class MovementTypeController extends Controller
      */
     public function destroy($id)
     {
-        $deletedMovementType = MovementType::where('id', $id)
+        $deletedStore = Store::where('id', $id)
             ->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Tipo de movimiento eliminado correctamente',
-            'data' => $deletedMovementType,
+            'message' => 'Tienda eliminada correctamente',
+            'data' => $deletedStore,
         ], 200);
     }
 }

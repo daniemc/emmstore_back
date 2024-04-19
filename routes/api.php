@@ -2,9 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\api\MovementTypeController;
-
+use DB;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,6 +17,12 @@ use App\Http\Controllers\api\MovementTypeController;
 // API healt check
 Route::get('/hcheck', function () {
     return response('OK', 200);
+});
+
+// API DB connection check
+Route::get('/dbcheck', function () {
+    $db = DB::connection()->getDatabaseName();
+    return response($db, 200);
 });
 
 
@@ -52,4 +56,5 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::delete('/product_varitants/{id}', 'App\Http\Controllers\api\ProductVariantController@delete');
 
     Route::resource('movementtypes', 'App\Http\Controllers\api\MovementTypeController');
+    Route::resource('stores', 'App\Http\Controllers\api\StoreController');
 });
