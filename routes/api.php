@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\api\MovementTypeController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,11 +23,11 @@ Route::get('/hcheck', function () {
 
 
 Route::group(['prefix' => 'auth', ['middleware' => 'throttle:20,5']], function () {
-    Route::post('/register', 'api\auth\RegisterController@register');
+    Route::post('/register', 'App\Http\Controllers\api\auth\RegisterController@register');
     Route::post('/login', 'App\Http\Controllers\api\auth\LoginController@login');
     
-    Route::post('/password/reset/data', 'api\auth\ResetPasswordController@getResetPasswordData');
-    Route::post('/password/reset', 'api\auth\ResetPasswordController@resetPassword');
+    Route::post('/password/reset/data', 'App\Http\Controllers\api\auth\ResetPasswordController@getResetPasswordData');
+    Route::post('/password/reset', 'App\Http\Controllers\api\auth\ResetPasswordController@resetPassword');
 });
 
 Route::group(['middleware' => 'jwt.verify'], function () {
@@ -48,4 +50,6 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('/products_varitants', 'App\Http\Controllers\api\ProductVariantController@save');
     Route::put('/product_varitants/{id}', 'App\Http\Controllers\api\ProductVariantController@update');
     Route::delete('/product_varitants/{id}', 'App\Http\Controllers\api\ProductVariantController@delete');
+
+    Route::resource('movementtypes', 'App\Http\Controllers\api\MovementTypeController');
 });
