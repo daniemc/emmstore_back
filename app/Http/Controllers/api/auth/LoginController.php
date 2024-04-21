@@ -58,6 +58,15 @@ class LoginController extends Controller
         ]);
     }
 
+    public function showLoguedUser(Request $request) 
+    {
+        $userId = $request->user()->id;
+        $user = User::where('id', $userId)->first();
+        return response()->json([
+            'user' => $user,
+        ]);
+    }
+
     public function logout(Request $request) 
     {
         try {

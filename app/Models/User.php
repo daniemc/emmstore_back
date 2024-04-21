@@ -72,4 +72,26 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+
+    /**
+     * Get all of the roles for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function roles()
+    {
+        return $this->hasMany(UserRole::class, 'user_id', 'id')
+            ->where('active', true);
+    }
+
+    /**
+     * Get the user associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user_creator()
+    {
+        return $this->hasOne(User::class, 'id', 'id');
+    }
 }

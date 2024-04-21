@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -11,10 +12,10 @@ use DateTime;
 
 class UserController extends Controller
 {
-    public function show(Request $request)
+    public function show($id)
     {
-        $userId = $request->user()->id;
-        $user = User::where('id', $userId)->first();
+        $user = User::with(['roles', 'user_creator'])
+            ->where('id', $id)->first();
         return response()->json([
             'user' => $user,
         ]);
@@ -86,6 +87,25 @@ class UserController extends Controller
             'status' => 'success',
             'message' => 'Usuario eliminado correctamente',
             'data' => $deletedUser,
+        ], 200);
+    }
+
+    public function handleRoleAssign(Request $request)
+    {
+        $roles = UserRole::updateOrCreate(
+            [
+                'user_id' => $request->user_id,
+                'role_id' => $request->role_id,
+            ],
+            [
+                'active' => $request->active,
+            ]
+        );
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario actualizado correctamente correctamente',
+            'data' => $roles,
         ], 200);
     }
 }

@@ -37,13 +37,15 @@ Route::group(['prefix' => 'auth', ['middleware' => 'throttle:20,5']], function (
 
 Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('/logout', 'App\Http\Controllers\api\auth\LoginController@logout');
-    Route::get('/authUser', 'App\Http\Controllers\api\UserController@show');
+    Route::get('/authUser', 'App\Http\Controllers\api\auth\LoginController@showLoguedUser');
 
     //users
+    Route::get('/user/{id}', 'App\Http\Controllers\api\UserController@show');
     Route::get('/users', 'App\Http\Controllers\api\UserController@list');
     Route::post('/users', 'App\Http\Controllers\api\UserController@save');
     Route::put('/user/{id}', 'App\Http\Controllers\api\UserController@update');
     Route::delete('/user/{id}', 'App\Http\Controllers\api\UserController@delete');
+    Route::post('/user/roles', 'App\Http\Controllers\api\UserController@handleRoleAssign');
 
     //products
     Route::get('/products', 'App\Http\Controllers\api\ProductsController@list');
@@ -56,6 +58,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::put('/product_varitants/{id}', 'App\Http\Controllers\api\ProductVariantController@update');
     Route::delete('/product_varitants/{id}', 'App\Http\Controllers\api\ProductVariantController@delete');
 
+    Route::resource('roles', 'App\Http\Controllers\api\RolesController');
     Route::resource('movementtypes', 'App\Http\Controllers\api\MovementTypeController');
     Route::resource('stores', 'App\Http\Controllers\api\StoreController');
 });
