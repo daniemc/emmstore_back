@@ -17,6 +17,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->truncate();
+        
         DB::table('users')->insert([
             'name' => 'System',
             'last_name' => 'Admin',
@@ -27,5 +29,14 @@ class UserSeeder extends Seeder
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
+
+        DB::table('user_roles')->insertGetId([
+            'user_id' => 1,
+            'role_id' => 1,
+            'active' => true,
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime(),
+        ]);
+
     }
 }
