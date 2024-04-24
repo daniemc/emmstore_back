@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Store;
+use App\Models\UserStore;
 
 class StoreController extends Controller
 {
@@ -52,7 +53,11 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        //
+        $store = Store::with(['users'])
+            ->where('id', $id)->first();
+        return response()->json([
+            'data' => $store,
+        ]);
     }
 
     /**

@@ -18,5 +18,16 @@ class Store extends Model
 
     protected $casts = [
         'active' => 'boolean',
+        'warehouse' => 'boolean',
     ];
+
+    /**
+     * Get all of the users for the Store
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany(UserStore::class, 'store_id', 'id');
+    }
 }
