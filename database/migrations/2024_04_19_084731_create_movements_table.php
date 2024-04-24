@@ -24,6 +24,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('user_stores', function (Blueprint $table) {
+            $table->id();
+            $table->integer("user_id");
+            $table->integer("store_id");
+            $table->boolean("active")->default(true);
+            $table->timestamps();
+        });
+
         Schema::create('movement_types', function (Blueprint $table) {
             $table->id();
             $table->string('code');
@@ -43,6 +51,7 @@ return new class extends Migration
             $table->integer('store_id');
             $table->integer('pos_id');
             $table->integer('movement_type_id');
+            $table->integer('movement_code')->nullable();
             $table->integer('qty');
             $table->decimal('total_db', total: 8, places: 2);
             $table->decimal('total_cr', total: 8, places: 2);

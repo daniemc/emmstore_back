@@ -97,4 +97,23 @@ class StoreController extends Controller
             'data' => $deletedStore,
         ], 200);
     }
+
+    public function handleUserAssign(Request $request)
+    {
+        $stores = UserStore::updateOrCreate(
+            [
+                'user_id' => $request->user_id,
+                'store_id' => $request->store_id,
+            ],
+            [
+                'active' => $request->active,
+            ]
+        );
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario actualizado correctamente correctamente',
+            'data' => $stores,
+        ], 200);
+    }
 }
