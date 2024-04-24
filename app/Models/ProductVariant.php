@@ -16,6 +16,8 @@ class ProductVariant extends Model
         'color',
         'size',
         'brand',
+        'characteristic1',
+        'characteristic2',
         'barrcode',
         'active',
         'created_by',

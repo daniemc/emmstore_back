@@ -70,6 +70,7 @@ class StoreController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'active' => $request->active,
+                'warehouse' => $request->warehouse,
             ]);
 
         return response()->json([

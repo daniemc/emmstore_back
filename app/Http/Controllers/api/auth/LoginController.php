@@ -51,17 +51,25 @@ class LoginController extends Controller
                 'error' => 'could_not_create_token'
             ], 500);
         }
+
+        $userId = $request->user()->id;
+        $user = User::with(['roles.role'])
+            ->where('id', $userId)
+            ->first();
+
         return response()->json([
             'success' => true,
             'token' => $token,
-            'user' => auth()->user(),
+            'user' => $user,
         ]);
     }
 
     public function showLoguedUser(Request $request) 
     {
         $userId = $request->user()->id;
-        $user = User::where('id', $userId)->first();
+        $user = User::with(['roles.role'])
+            ->where('id', $userId)
+            ->first();
         return response()->json([
             'user' => $user,
         ]);

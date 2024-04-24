@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->boolean('warehouse')->default(false);
             $table->boolean('active');
             $table->timestamps();
         });
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('flow');
             $table->timestamps();
         });
 

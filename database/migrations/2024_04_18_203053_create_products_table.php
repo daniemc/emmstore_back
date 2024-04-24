@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->string('brand')->nullable();
+            $table->string('characteristic1')->nullable();
+            $table->string('characteristic2')->nullable();
             $table->string('barrcode')->nullable();
             $table->boolean('active');
             $table->integer('created_by');

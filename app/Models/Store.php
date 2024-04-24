@@ -13,6 +13,7 @@ class Store extends Model
         'name',
         'description',
         'active',
+        'warehouse',
     ];
 
     protected $casts = [

@@ -14,4 +14,14 @@ class UserRole extends Model
         'role_id',
         'active',
     ];
+
+    /**
+     * Get the role associated with the UserRole
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
 }

@@ -58,6 +58,8 @@ class UserController extends Controller
     {
         $requestUser = $request->user();
 
+
+
         $updatedUser = User::where('id', $id)
             ->update([
                 'name' => $request->name,
@@ -67,9 +69,15 @@ class UserController extends Controller
                 'doc_type' => $request->doc_type,
                 'doc' => $request->doc,
                 'phone' => $request->phone,
-                'password' => Hash::make($request->password),
                 'updated_at' => new DateTime(),
             ]);
+            
+        if ($request->password && $request->password != '') {
+            $updatedUser = User::where('id', $id)
+                ->update([
+                    'password' => Hash::make($request->password),
+                ]);
+        }
 
         return response()->json([
             'status' => 'success',
