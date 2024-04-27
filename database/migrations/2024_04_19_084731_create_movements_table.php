@@ -57,6 +57,7 @@ return new class extends Migration
             $table->decimal('total_cr', total: 8, places: 2);
             $table->boolean('status');
             $table->integer('updated_by');
+            $table->dateTime('date')->useCurrent();
             $table->timestamps();
         });
     }
@@ -68,8 +69,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('movements');
         Schema::dropIfExists('movement_types');
+        Schema::dropIfExists('user_stores');
+        Schema::dropIfExists('movements');
         Schema::dropIfExists('stores');
     }
 };
