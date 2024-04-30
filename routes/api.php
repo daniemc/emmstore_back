@@ -63,4 +63,6 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::resource('stores', 'App\Http\Controllers\api\StoreController');
     Route::post('/store/users', 'App\Http\Controllers\api\StoreController@handleUserAssign');
+
+    Route::get('/vendors', 'App\Http\Controllers\api\VendorController@index');
 });
