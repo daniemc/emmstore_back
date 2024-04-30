@@ -27,7 +27,13 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         try {
             $user = User::where('email', $request->email)->first();
-            if ($user->userData->status == 0) {
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'invalid_credentials',
+                ], 401);
+            }
+            if ($user->status == 0) {
                 return response()->json([
                     'success' => false,
                     'error' => 'invalid_credentials',
@@ -45,11 +51,41 @@ class LoginController extends Controller
                 'error' => 'could_not_create_token'
             ], 500);
         }
+
+        $userId = $request->user()->id;
+        $user = User::with(['roles.role'])
+            ->where('id', $userId)
+            ->first();
+
         return response()->json([
             'success' => true,
             'token' => $token,
-            'user' => auth()->user(),
+            'user' => $user,
         ]);
+    }
 
+    public function showLoguedUser(Request $request) 
+    {
+        $userId = $request->user()->id;
+        $user = User::with(['roles.role'])
+            ->where('id', $userId)
+            ->first();
+        return response()->json([
+            'user' => $user,
+        ]);
+    }
+
+    public function logout(Request $request) 
+    {
+        try {
+            auth()->logout();
+            return [
+                'success' => true,
+            ];
+        } catch (JWTException $e) {
+            return response()->json([
+                'error' => 'could_not_logout'
+            ], 500);
+        }
     }
 }
