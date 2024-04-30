@@ -13,11 +13,17 @@ class Movement extends Model
         'product_id',
         'product_variant_id',
         'user_id',
-        'type',
+        'vendor_id',
+        'customer_id',
+        'store_id',
+        'pos_id',
+        'movement_type_id',
+        'movement_code',
         'qty',
         'total_db',
         'total_cr',
         'status',
         'updated_by',
+        'date',
     ];
 }

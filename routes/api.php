@@ -60,6 +60,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::resource('roles', 'App\Http\Controllers\api\RolesController');
     Route::resource('movementtypes', 'App\Http\Controllers\api\MovementTypeController');
+    Route::resource('movements', 'App\Http\Controllers\api\MovementController');
 
     Route::resource('stores', 'App\Http\Controllers\api\StoreController');
     Route::post('/store/users', 'App\Http\Controllers\api\StoreController@handleUserAssign');
